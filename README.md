@@ -6,8 +6,6 @@ capas** (FastAPI + PostgreSQL 15), dockerizada y desplegada en AWS EC2.
 ## Documentación
 
 - **[INFORME.md](INFORME.md)** — informe del laboratorio con diagramas y evidencias.
-- **[README Fase 1.md](<README Fase 1.md>)** — aplicación local en 3 capas (arquitectura, flujo de datos, modelo).
-- **[README Fase 2 y Fase 3.md](<README Fase 2 y Fase 3.md>)** — Docker, publicación en Docker Hub y despliegue en AWS.
 
 ## Ejecución rápida
 
