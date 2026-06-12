@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block titulo %}Partidos — PrediMundial{% endblock %}
+
+{% block contenido %}
+<header class="encabezado-vista">
+  <h1 class="titulo-vista">Partidos del Mundial</h1>
+  <p class="subtitulo-vista">
+    {{ partidos | length }} partidos almacenados en la base de datos.
+    Elige uno y registra tu predicción.
+  </p>
+</header>
+
+{# Orden cronológico para que cada ronda quede como una sección contigua #}
+{% for partido in partidos | sort(attribute='fecha') %}
+  {% if loop.first or partido.ronda != loop.previtem.ronda %}
+    {% if not loop.first %}</div>{% endif %}
+    <h2 class="titulo-ronda"><span>{{ partido.ronda }}</span></h2>
+    <div class="row g-3 g-lg-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+  {% endif %}
+
+  <div class="col">
+    <article class="card card-partido h-100">
+      <div class="card-partido-cabecera">
+        <span class="chip-numero">Partido #{{ partido.numero }}</span>
+        <span class="fecha-partido">{{ partido.fecha }}</span>
+      </div>
+      <div class="card-body cuerpo-partido">
+        <div class="equipo">
+          <span class="bandera">{{ partido.equipo_local | bandera }}</span>
+          <span class="nombre-equipo">{{ partido.equipo_local }}</span>
+        </div>
+        <div class="marcador-centro">
+          {% if partido.goles_local is not none %}
+            <span class="marcador-led">{{ partido.goles_local }}<small>:</small>{{ partido.goles_visitante }}</span>
+            <span class="etiqueta-final">final</span>
+          {% else %}
+            <span class="vs">VS</span>
+          {% endif %}
+        </div>
+        <div class="equipo">
+          <span class="bandera">{{ partido.equipo_visitante | bandera }}</span>
+          <span class="nombre-equipo">{{ partido.equipo_visitante }}</span>
+        </div>
+      </div>
+      <div class="card-footer pie-partido">
+        <a class="btn btn-predecir w-100" href="/partidos/{{ partido.id }}/predecir">🎯 Predecir</a>
+      </div>
+    </article>
+  </div>
+
+  {% if loop.last %}</div>{% endif %}
+{% endfor %}
+{% endblock %}

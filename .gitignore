@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Bases de datos locales (la fase SQLite quedó obsoleta; PostgreSQL vive en Docker)
+*.db
+
+# Variables de entorno reales (usar .env.example como plantilla)
+.env
+
+# Material del curso
+*.docx
+
+# Basura del sistema operativo
+.DS_Store
+Thumbs.db

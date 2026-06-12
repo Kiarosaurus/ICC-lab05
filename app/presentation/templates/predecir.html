@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block titulo %}Predecir — PrediMundial{% endblock %}
+
+{% block contenido %}
+<div class="row justify-content-center">
+  <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+    <a class="enlace-volver" href="/">← Volver a los partidos</a>
+
+    <article class="card card-prediccion">
+      <div class="cabecera-duelo">
+        <span class="chip-ronda">{{ partido.ronda }}</span>
+        <div class="duelo">
+          <div class="equipo-grande">
+            <span class="bandera-grande">{{ partido.equipo_local | bandera }}</span>
+            <span class="nombre-equipo">{{ partido.equipo_local }}</span>
+          </div>
+          <span class="vs-grande">VS</span>
+          <div class="equipo-grande">
+            <span class="bandera-grande">{{ partido.equipo_visitante | bandera }}</span>
+            <span class="nombre-equipo">{{ partido.equipo_visitante }}</span>
+          </div>
+        </div>
+        <span class="fecha-partido">📅 {{ partido.fecha }} · Partido #{{ partido.numero }}</span>
+      </div>
+
+      <div class="card-body p-4">
+        {% if error %}
+        <div class="alert alerta-error" role="alert">⚠️ {{ error }}</div>
+        {% endif %}
+
+        <form method="post" action="/partidos/{{ partido.id }}/predicciones">
+          <div class="mb-3">
+            <label class="form-label" for="usuario">Tu nombre</label>
+            <input class="form-control" id="usuario" name="usuario" type="text"
+                   maxlength="50" placeholder="¿Quién predice?" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label" for="resultado">Resultado</label>
+            <select class="form-select" id="resultado" name="resultado" required>
+              <option value="local">🏆 Gana {{ partido.equipo_local }}</option>
+              <option value="empate">🤝 Empate</option>
+              <option value="visitante">🏆 Gana {{ partido.equipo_visitante }}</option>
+            </select>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-6">
+              <label class="form-label" for="goles_local">Goles {{ partido.equipo_local }}</label>
+              <input class="form-control input-goles" id="goles_local" name="goles_local"
+                     type="number" min="0" max="20" value="0" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label" for="goles_visitante">Goles {{ partido.equipo_visitante }}</label>
+              <input class="form-control input-goles" id="goles_visitante" name="goles_visitante"
+                     type="number" min="0" max="20" value="0" required>
+            </div>
+          </div>
+
+          <button class="btn btn-predecir w-100 mt-4" type="submit">Guardar predicción</button>
+        </form>
+      </div>
+    </article>
+  </div>
+</div>
+{% endblock %}

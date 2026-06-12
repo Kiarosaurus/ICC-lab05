@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block titulo %}Mis Predicciones — PrediMundial{% endblock %}
+
+{% block contenido %}
+<header class="encabezado-vista">
+  <h1 class="titulo-vista">Mis Predicciones</h1>
+  {% if predicciones %}
+  <p class="subtitulo-vista">{{ predicciones | length }} predicciones guardadas en la base de datos.</p>
+  {% endif %}
+</header>
+
+{% if predicciones %}
+<div class="card card-tabla">
+  <div class="table-responsive">
+    <table class="table tabla-predicciones align-middle mb-0">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Partido</th>
+          <th>Ronda</th>
+          <th>Predicción</th>
+          <th class="text-center">Marcador</th>
+          <th class="text-end">Registrada (UTC)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in predicciones %}
+        <tr>
+          <td>
+            <span class="avatar-usuario">{{ p.usuario[:1] | upper }}</span>
+            <span class="nombre-usuario">{{ p.usuario }}</span>
+          </td>
+          <td class="celda-partido">
+            {{ p.equipo_local | bandera }} {{ p.equipo_local }}
+            <span class="vs-mini">vs</span>
+            {{ p.equipo_visitante | bandera }} {{ p.equipo_visitante }}
+          </td>
+          <td><span class="chip-ronda">{{ p.ronda }}</span></td>
+          <td>
+            {% if p.resultado == 'local' %}
+              <span class="badge badge-gana">🏆 {{ p.equipo_local }}</span>
+            {% elif p.resultado == 'visitante' %}
+              <span class="badge badge-gana">🏆 {{ p.equipo_visitante }}</span>
+            {% else %}
+              <span class="badge badge-empate">🤝 Empate</span>
+            {% endif %}
+          </td>
+          <td class="text-center"><span class="marcador-pill">{{ p.goles_local }} - {{ p.goles_visitante }}</span></td>
+          <td class="text-end celda-fecha">{{ p.creado_en }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% else %}
+<div class="estado-vacio">
+  <div class="estado-vacio-icono">🔮</div>
+  <h2>Aún no hay predicciones</h2>
+  <p>Elige un partido y registra la primera.</p>
+  <a class="btn btn-predecir" href="/">Ver partidos</a>
+</div>
+{% endif %}
+{% endblock %}
