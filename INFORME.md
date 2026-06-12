@@ -1,6 +1,7 @@
 # Informe de Laboratorio 05 — Contenedores y Cloud
 
-**Curso:** Computación Cognitiva / Arquitectura Cloud
+**Nombre:** Kiara Alexandra Balcázar Santa Cruz
+**Curso:** Introducción a Cognitive Computing
 **Aplicación:** Sistema de Gestión de Predicciones del Mundial de Fútbol
 **Arquitectura:** 3 Capas (Presentación, Negocio, Datos) + Docker + AWS Academy
 
